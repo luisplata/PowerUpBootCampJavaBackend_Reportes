@@ -1,0 +1,4 @@
+services:
+  app-service-hu1:
+    ports:
+      - "8083:8080"
