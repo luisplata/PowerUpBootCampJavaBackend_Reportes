@@ -26,10 +26,11 @@ cors:
 aws:
   dynamodb:
     endpoint: "https://dynamodb.us-east-1.amazonaws.com"
-  region: us-east-1
+  region: "${AWS_REGION}"
+  sqs:
+    queueUrl: "${AWS_SQS_QUEUEURL}"
 
 adapter:
   sqs:
-    region: "us-east-1"
-    queueUrl: "https://sqs.us-east-1.amazonaws.com/326623589662/reporte-sqs"
-
+    region: "${AWS_REGION}"
+    queueUrl: "${AWS_SQS_QUEUEURL}"
