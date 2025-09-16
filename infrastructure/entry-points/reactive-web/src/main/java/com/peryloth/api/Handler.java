@@ -15,7 +15,7 @@ public class Handler {
     private final ReporteRepository reporteRepository;
 
     public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        return reporteRepository.saveR(new Reporte("hoy", "otroavez"))
+        return reporteRepository.incrementCounter("approvedLoans", 1L, 1.0)
                 .then(ServerResponse.ok().bodyValue("Guardado correctamente"));
     }
 }

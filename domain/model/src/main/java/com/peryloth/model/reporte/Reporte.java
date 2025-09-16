@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Reporte {
-    public String id;
-    public String fecha_creacion;
+    public String counterId;
+    public Long count;
+    public Double totalAmount;
 }

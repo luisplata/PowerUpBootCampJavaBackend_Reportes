@@ -2,39 +2,50 @@ package com.peryloth.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-/* Enhanced DynamoDB annotations are incompatible with Lombok #1932
-         https://github.com/aws/aws-sdk-java-v2/issues/1932*/
+/**
+ * Entity que representa la tabla LoanCounters en DynamoDB.
+ */
 @DynamoDbBean
 public class ModelEntity {
 
-    private String id;
-    private String fecha_creacion;
+    private String counterId;    // Partition Key
+    private Long count;          // total de préstamos
+    private Double totalAmount;  // monto acumulado
 
     public ModelEntity() {
     }
 
-    public ModelEntity(String id, String fecha_creacion) {
-        this.id = id;
-        this.fecha_creacion = fecha_creacion;
+    public ModelEntity(String counterId, Long count, Double totalAmount) {
+        this.counterId = counterId;
+        this.count = count;
+        this.totalAmount = totalAmount;
     }
 
     @DynamoDbPartitionKey
-    @DynamoDbAttribute("id")
-    public String getId() {
-        return id;
+    @DynamoDbAttribute("counterId")
+    public String getCounterId() {
+        return counterId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCounterId(String counterId) {
+        this.counterId = counterId;
     }
 
-    @DynamoDbAttribute("fecha_creacion")
-    @DynamoDbSortKey
-    public String getFecha_creacion() {
-        return fecha_creacion;
+    @DynamoDbAttribute("count")
+    public Long getCount() {
+        return count;
     }
 
-    public void setFecha_creacion(String fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
+    @DynamoDbAttribute("totalAmount")
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }
