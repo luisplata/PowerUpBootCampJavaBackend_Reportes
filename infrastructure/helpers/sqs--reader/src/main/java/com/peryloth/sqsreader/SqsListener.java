@@ -1,5 +1,7 @@
 package com.peryloth.sqsreader;
 
+import com.peryloth.sqsreader.mapper.LoanEventMapper;
+import com.peryloth.usecase.saveamount.ISaveAmount;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,8 @@ import software.amazon.awssdk.services.sqs.model.Message;
 public class SqsListener {
 
     private final SqsAsyncClient sqsAsyncClient;
+    private final ISaveAmount saveAmount;
+    private final LoanEventMapper loanEventMapper;
 
     @Value("${aws.sqs.queueUrl}")
     private String queueUrl;
@@ -40,10 +44,10 @@ public class SqsListener {
 
     private void processMessage(Message message) {
         log.info("📥 Mensaje recibido: id={} body={}", message.messageId(), message.body());
-
-        // TODO: procesar el mensaje (ej. guardar en DynamoDB)
-
-        deleteMessage(message);
+        saveAmount.saveLoan(loanEventMapper.toDomain(message.body()))
+                .doOnSuccess(v -> deleteMessage(message))
+                .doOnError(e -> log.error("❌ Error procesando mensaje {}", message.messageId(), e))
+                .subscribe();
     }
 
     private void deleteMessage(Message message) {
