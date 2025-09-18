@@ -11,10 +11,15 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class RouterRest {
+
+    private final AuthFilter authFilter;
+
+    public RouterRest(AuthFilter authFilter) {
+        this.authFilter = authFilter;
+    }
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
-        return route(GET("/api/v1/reportes"), handler::listenGETUseCase);
-//                .andRoute(POST("/api/usecase/otherpath"), handler::listenPOSTUseCase)
-//                .and(route(GET("/api/otherusercase/path"), handler::listenGETOtherUseCase));
+        return route(GET("/api/v1/reportes"), handler::listenGETUseCase).filter(authFilter);
     }
 }

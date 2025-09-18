@@ -12,6 +12,7 @@ services:
       AWS_REGION: ${AWS_REGION}
       AWS_PROFILE: ${AWS_PROFILE}
       AWS_SQS_QUEUEURL: ${AWS_SQS_QUEUEURL}
+      APP_SECRET_KEY: ${SECRET_KEY}
 
 networks:
   bootcamp_network:

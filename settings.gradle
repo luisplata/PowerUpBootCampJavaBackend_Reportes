@@ -30,3 +30,5 @@ include ':sqs-sender'
 project(':sqs-sender').projectDir = file('./infrastructure/driven-adapters/sqs-sender')
 include ':sqs--reader'
 project(':sqs--reader').projectDir = file('./infrastructure/helpers/sqs--reader')
+include ':web-client'
+project(':web-client').projectDir = file('./infrastructure/helpers/web-client')
