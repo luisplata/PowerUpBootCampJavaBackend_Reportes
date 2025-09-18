@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':usecase')
+    implementation 'org.springframework:spring-context'
+    implementation 'software.amazon.awssdk:sqs'
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:auth'
+    implementation 'software.amazon.awssdk:regions'
+    implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+}

@@ -1,0 +1,19 @@
+services:
+  app-service-hu1:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    networks:
+      - bootcamp_network
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_PROFILE: ${AWS_PROFILE}
+      AWS_SQS_QUEUEURL: ${AWS_SQS_QUEUEURL}
+      APP_SECRET_KEY: ${SECRET_KEY}
+
+networks:
+  bootcamp_network:
+    external: true
