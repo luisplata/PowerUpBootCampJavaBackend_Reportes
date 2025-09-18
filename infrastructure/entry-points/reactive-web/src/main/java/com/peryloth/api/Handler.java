@@ -1,5 +1,6 @@
 package com.peryloth.api;
 
+import com.peryloth.api.Dto.ResponseGetTotalAmountDto;
 import com.peryloth.model.reporte.Reporte;
 import com.peryloth.model.reporte.gateways.ReporteRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,11 @@ import reactor.core.publisher.Mono;
 public class Handler {
 
     private final ReporteRepository reporteRepository;
+    private final AmountMapper mapper;
 
     public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        return reporteRepository.incrementCounter("approvedLoans", 1L, 1.0)
-                .then(ServerResponse.ok().bodyValue("Guardado correctamente"));
+        return reporteRepository.getApprovedTotal()
+                .flatMap(reporte -> Mono.just(new ResponseGetTotalAmountDto(reporte.count, reporte.totalAmount)))
+                .flatMap(reporteDto -> ServerResponse.ok().bodyValue(mapper.toJson(reporteDto)));
     }
 }
